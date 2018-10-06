@@ -26,3 +26,4 @@ Route::post('store','ShopController@store');
 Route::get('show/{id}','ShopController@show');
 Route::get('edit/{id}','ShopController@edit');
 Route::post('update/{id}','ShopController@update');
+Route::delete('delete/{id}','ShopController@delete');
