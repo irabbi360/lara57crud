@@ -37,11 +37,39 @@ class ShopController extends Controller
             'address' => $address
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('status', 'Shop successfully saved');
     }
 
-    public function show()
+    public function show($id)
     {
+        $shop = Shop::find($id);
+
+        return view('shop.view', compact('shop'));
+    }
+
+    public function edit($id)
+    {
+        $shop = Shop::where('id', $id)->first();
+
+        return view('shop.edit', compact('shop'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request,[
+            'name' => 'required',
+            'location' => 'required',
+            'address' => 'required',
+        ]);
+
+        $shop = Shop::find($id);
+        $shop->name = $request->name;
+        $shop->location = $request->location;
+        $shop->address = $request->address;
+
+        $shop->save();
+
+        return redirect()->back()->with('status', 'Shop info updated');
 
     }
 }

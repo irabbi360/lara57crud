@@ -23,3 +23,6 @@ Route::get('shop','ShopController@index');
 
 Route::get('create','ShopController@create');
 Route::post('store','ShopController@store');
+Route::get('show/{id}','ShopController@show');
+Route::get('edit/{id}','ShopController@edit');
+Route::post('update/{id}','ShopController@update');

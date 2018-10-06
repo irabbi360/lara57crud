@@ -5,17 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Shop name: {{ $shop->name }}</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
+                    <p>Location: {{ $shop->location }}</p>
+                    <p>Address: {{ $shop->address }}</p>
+                    <p>Create at: {{ $shop->created_at }}</p>
                 </div>
+                <p><a href="{{ url('shop') }}">Back to shop list</a> </p>
             </div>
         </div>
     </div>
