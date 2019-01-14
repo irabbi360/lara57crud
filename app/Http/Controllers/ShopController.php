@@ -78,4 +78,29 @@ class ShopController extends Controller
         Shop::where('id', $id)->delete();
         return redirect()->back()->with('status', 'Shop info deleted');
     }
+
+
+
+
+
+    public function imageGet()
+    {
+        return view('image');
+    }
+
+    public function imageUpload(Request $request)
+    {
+        $this->validate($request,[
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $imageName = time().'.'.request()->image->getClientOriginalExtension();
+
+
+        request()->image->move(public_path('images'), $imageName);
+
+
+        return back()->with('success','You have successfully upload image.')
+                    ->with('image',$imageName);
+    }
 }
