@@ -1,158 +1,78 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Laravel 5.7 JQuery Form Validation Example - Tech Bangla School</title>
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>  
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-  </head>
-<body>
-    <div class="container">
-      <h2>Laravel 5.7 JQuery Form Validation Example - Tech Bangla School</h2><br/>
-  
-      <form method="post" action="{{url('validation')}}" id="form">
-        @csrf
-  
-        <div class="row">
-          <div class="col-md-4"></div>
-          <div class="form-group col-md-4">
-            <label for="Name">Name:</label>
-            <input type="text" class="form-control" name="name">
-          </div>
-        </div>
-  
-        <div class="row">
-          <div class="col-md-4"></div>
-          <div class="form-group col-md-4">
-              <label for="Email">Email:</label>
-              <input type="text" class="form-control" name="email">
-          </div>
-        </div>
-  
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="form-group col-md-4">
-              <label for="Number">Phone Number:</label>
-              <input type="text" class="form-control" name="number">
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Save shop info</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                        <div class="card-body">
+                            <form method="POST" action="{{ url('store') }}">
+                                @csrf
+
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-4 col-form-label text-md-right">Shop Name</label>
+
+                                    <div class="col-md-6">
+                                        <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="location" class="col-md-4 col-form-label text-md-right">Location</label>
+
+                                    <div class="col-md-6">
+                                        <input id="location" type="text" class="form-control{{ $errors->has('location') ? ' is-invalid' : '' }}" name="location" required>
+
+                                        @if ($errors->has('location'))
+                                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('location') }}</strong>
+                                    </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="address" class="col-md-4 col-form-label text-md-right">Address</label>
+
+                                    <div class="col-md-6">
+                                        <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" required>
+
+                                        @if ($errors->has('address'))
+                                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('address') }}</strong>
+                                    </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group row mb-0">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            Save
+                                        </button>
+                                    </div>
+                                    <a href="{{ url('shop') }}">Back to shop list</a>
+                                </div>
+                            </form>
+                        </div>
+                </div>
             </div>
         </div>
-  
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="form-group col-md-4">
-              <label for="Min Length">Min Length(minium 5):</label>
-              <input type="text" class="form-control" name="minlength">
-            </div>
-        </div>
-  
-          <div class="row">
-            <div class="col-md-4"></div>
-            <div class="form-group col-md-4">
-              <label for="Max Length">Max Length(maximum 8):</label>
-              <input type="text" class="form-control" name="maxlength">
-            </div>
-          </div>
-  
-          <div class="row">
-            <div class="col-md-4"></div>
-            <div class="form-group col-md-4">
-              <label for="Min Value">Min Value(minium 1):</label>
-              <input type="text" class="form-control" name="minvalue">
-            </div>
-          </div>
-  
-          <div class="row">
-            <div class="col-md-4"></div>
-            <div class="form-group col-md-4">
-              <label for="Max Value">Max Value(maximum value 100):</label>
-              <input type="text" class="form-control" name="maxvalue">
-            </div>
-          </div>
-  
-          <div class="row">
-            <div class="col-md-4"></div>
-            <div class="form-group col-md-4">
-              <label for="Range">Range(minium 20, maximum 40):</label>
-              <input type="text" class="form-control" name="range">
-            </div>
-          </div>
-  
-          <div class="row">
-            <div class="col-md-4"></div>
-            <div class="form-group col-md-4">
-              <label for="Range">URL:</label>
-              <input type="text" class="form-control" name="url">
-            </div>
-          </div>
-  
-        <div class="row">
-          <div class="col-md-4"></div>
-          <div class="form-group col-md-4">
-            <input type="file" name="filename">    
-         </div>
-        </div>
-  
-        <div class="row">
-          <div class="col-md-4"></div>
-          <div class="form-group col-md-4" style="margin-top:60px">
-            <button type="submit" class="btn btn-success">Submit</button>
-          </div>
-        </div>
-  
-      </form>
- 
     </div>
-   
-<script>
- 
-    $(document).ready(function () {
- 
-    $('#form').validate({ // initialize the plugin
-        rules: {
-            name: {
-                required: true
-            },
-            email: {
-                required: true,
-                email: true
-            },
-            number: {
-                required: true,
-                digits: true
-            },
-            minlength: {
-                required: true,
-                minlength: 5
-            },
-            maxlength: {
-                required: true,
-                maxlength: 8
-            },
-            minvalue: {
-                required: true,
-                min: 1
-            },
-            maxvalue: {
-                required: true,
-                max: 100
-            },
-            range: {
-                required: true,
-                range: [20, 40]
-            },
-            url: {
-                required: true,
-                url: true
-            },
-            filename: {
-                required: true,
-                extension: "jpeg|png"
-            },
-        }
-    });
-});
-</script>
+</div>
+@endsection
