@@ -91,7 +91,7 @@ class ShopController extends Controller
     public function imageUpload(Request $request)
     {
         $this->validate($request,[
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required',
         ]);
 
         $imageName = time().'.'.request()->image->getClientOriginalExtension();
