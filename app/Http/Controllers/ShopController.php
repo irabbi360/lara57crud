@@ -76,7 +76,7 @@ class ShopController extends Controller
     public function delete($id)
     {
         Shop::where('id', $id)->delete();
-        return redirect()->back()->with('status', 'Shop info deleted');
+        return redirect()->back()->with('error', 'Shop info deleted');
     }
 
 

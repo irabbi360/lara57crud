@@ -8,11 +8,7 @@
                 <div class="card-header">Save shop info</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    @include('layouts.flash')
 
                         <div class="card-body">
                             <form method="POST" action="{{ url('store') }}">

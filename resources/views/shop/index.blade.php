@@ -8,11 +8,7 @@
                 <div class="card-header">Shops | <a href="{{ url('create') }}">Add new shop</a> </div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                    @include('layouts.flash')
 
                     @foreach($shops as $shop)
                         <li><a href="{{ url('show', $shop->id) }}">{{ $shop->name }}</a> - <a href="{{ url('edit', $shop->id) }}">Edit</a> -
